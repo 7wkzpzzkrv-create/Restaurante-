@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Noir & Sel — Alta Cocina Francesa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@100;200;300;400&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#020818;
+  --bg2:#040d20;
+  --bg3:#071028;
+  --silver:#d8dde8;
+  --silver2:#edf0f7;
+  --silver3:#f5f7fa;
+  --chrome:linear-gradient(135deg,#c8d8f0 0%,#f0f4ff 30%,#a0b4d0 55%,#dde8ff 75%,#b8cce0 100%);
+  --dim:rgba(210,218,235,0.65);
+  --dimmer:rgba(210,218,235,0.40);
+  --line:rgba(150,180,230,0.18);
+  --display:'Bebas Neue',sans-serif;
+  --serif:'DM Serif Display',Georgia,serif;
+  --sans:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--sans);background:#020818;color:#d8dde8;overflow-x:hidden}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:2rem 4vw;
+  transition:all 0.5s;
+}
+nav.scrolled{
+  background:rgba(2,8,24,0.97);
+  padding:1.2rem 4vw;
+  border-bottom:1px solid var(--line);
+}
+.nav-logo{
+  font-family:var(--display);
+  font-size:1.6rem;letter-spacing:5px;
+  background:var(--chrome);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  text-decoration:none;
+}
+.nav-center{display:flex;gap:3rem;list-style:none;position:absolute;left:50%;transform:translateX(-50%)}
+.nav-center a{
+  font-size:0.6rem;font-weight:300;letter-spacing:5px;text-transform:uppercase;
+  color:var(--dimmer);text-decoration:none;transition:color 0.3s;
+}
+.nav-center a:hover,.nav-center a.active{color:var(--silver2)}
+.nav-cta{
+  font-size:0.58rem;font-weight:300;letter-spacing:4px;text-transform:uppercase;
+  color:#000;background:var(--silver2);
+  padding:0.65rem 1.6rem;text-decoration:none;
+  transition:background 0.3s;
+}
+.nav-cta:hover{background:#fff}
+.hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer}
+.hamburger span{width:22px;height:1px;background:var(--silver)}
+
+/* ── HERO ── */
+.hero{
+  height:100vh;
+  display:grid;grid-template-columns:1fr 1fr;
+  position:relative;overflow:hidden;
+}
+.hero-left{
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 4vw 8vh 4vw;
+  position:relative;z-index:2;
+  border-right:1px solid rgba(150,180,230,0.18);
+}
+.hero-eyebrow{
+  font-size:0.58rem;font-weight:200;letter-spacing:8px;text-transform:uppercase;
+  color:var(--dimmer);margin-bottom:1.5rem;
+  display:flex;align-items:center;gap:1rem;
+}
+.hero-eyebrow::before{content:'';width:30px;height:1px;background:var(--dimmer)}
+.hero-h1{
+  font-family:var(--display);
+  font-size:clamp(5rem,10vw,10rem);
+  line-height:0.9;letter-spacing:3px;
+  background:var(--chrome);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:3rem;
+}
+.hero-desc{
+  font-size:0.7rem;font-weight:200;letter-spacing:2px;
+  color:var(--dimmer);line-height:2;
+  max-width:360px;margin-bottom:3rem;
+}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-solid{
+  font-size:0.58rem;font-weight:300;letter-spacing:4px;text-transform:uppercase;
+  color:#000;background:var(--silver2);
+  padding:0.9rem 2.2rem;text-decoration:none;transition:background 0.3s;
+  display:inline-block;
+}
+.btn-solid:hover{background:#fff}
+.btn-ghost{
+  font-size:0.58rem;font-weight:300;letter-spacing:4px;text-transform:uppercase;
+  color:var(--silver);border:1px solid var(--line);
+  padding:0.9rem 2.2rem;text-decoration:none;transition:border-color 0.3s,color 0.3s;
+  display:inline-block;
+}
+.btn-ghost:hover{border-color:var(--silver);color:var(--silver2)}
+.hero-right{
+  position:relative;overflow:hidden;
+}
+.hero-right img{
+  width:100%;height:100%;object-fit:cover;
+  filter:grayscale(0.6) contrast(1.1) brightness(0.75);
+  transition:transform 8s ease;
+}
+.hero-right:hover img{transform:scale(1.04)}
+.hero-right::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(270deg,transparent 40%,rgba(2,8,24,0.5) 100%);
+}
+.hero-num{
+  position:absolute;bottom:2rem;right:2rem;
+  font-family:var(--display);font-size:0.8rem;letter-spacing:4px;
+  color:var(--dimmer);z-index:2;
+}
+.hero-bottom-bar{
+  position:absolute;bottom:0;left:0;right:50%;
+  height:1px;background:var(--line);z-index:2;
+}
+
+/* ── MARQUEE ── */
+.marquee{
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  overflow:hidden;padding:1.2rem 0;background:var(--bg2);
+}
+.marquee-inner{
+  display:flex;gap:4rem;white-space:nowrap;
+  animation:marquee 20s linear infinite;
+}
+.marquee-inner span{
+  font-size:0.58rem;font-weight:200;letter-spacing:6px;text-transform:uppercase;
+  color:var(--dimmer);
+}
+.marquee-dot{color:var(--silver);opacity:0.4}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ── SECTIONS SHARED ── */
+section{padding:7rem 4vw}
+.s-label{
+  font-size:0.55rem;font-weight:300;letter-spacing:8px;text-transform:uppercase;
+  color:var(--dimmer);margin-bottom:1.5rem;
+}
+.s-h2{
+  font-family:var(--display);
+  font-size:clamp(3.5rem,7vw,7rem);
+  line-height:0.9;letter-spacing:3px;
+  background:var(--chrome);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.h-rule{width:100%;height:1px;background:var(--line);margin:4rem 0}
+
+/* ── PHILOSOPHY ── */
+.phil-wrap{
+  display:grid;grid-template-columns:1fr 2fr;
+  gap:6rem;align-items:start;
+  max-width:1200px;margin:0 auto;
+}
+.phil-left .s-h2{margin-bottom:2rem}
+.phil-left p{
+  font-size:0.68rem;font-weight:200;letter-spacing:1px;
+  color:var(--dimmer);line-height:2.2;
+}
+.phil-items{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--line)}
+.phil-item{
+  display:grid;grid-template-columns:60px 1fr;gap:2rem;
+  padding:2.5rem 0;border-bottom:1px solid var(--line);
+  transition:background 0.3s;cursor:default;
+}
+.phil-item:hover{background:rgba(30,60,120,0.20)}
+.phil-n{
+  font-family:var(--display);font-size:1.8rem;letter-spacing:2px;
+  color:rgba(200,205,214,0.12);align-self:center;
+}
+.phil-item h3{
+  font-family:var(--serif);font-size:1.1rem;font-style:italic;
+  color:var(--silver2);margin-bottom:0.6rem;
+}
+.phil-item p{
+  font-size:0.68rem;font-weight:200;letter-spacing:0.5px;
+  color:var(--dimmer);line-height:1.9;
+}
+
+/* ── CHEF ── */
+.chef-section{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.chef-wrap{
+  display:grid;grid-template-columns:5fr 4fr;
+  gap:0;max-width:100%;overflow:hidden;
+}
+.chef-img-col{
+  position:relative;overflow:hidden;
+  aspect-ratio:auto;min-height:600px;
+}
+.chef-img-col img{
+  width:100%;height:100%;object-fit:cover;object-position:top center;
+  filter:grayscale(0.5) contrast(1.05) brightness(0.8);
+  transition:transform 6s ease;
+}
+.chef-img-col:hover img{transform:scale(1.03)}
+.chef-img-col::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,transparent 60%,var(--bg2) 100%);
+}
+.chef-content{
+  padding:5rem 4vw 5rem 0;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.chef-content .s-label{margin-bottom:0.5rem}
+.chef-name{
+  font-family:var(--display);
+  font-size:clamp(3rem,5vw,5.5rem);
+  line-height:0.9;letter-spacing:3px;
+  background:var(--chrome);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:2.5rem;
+}
+.chef-quote{
+  font-family:var(--serif);font-size:1.05rem;font-style:italic;font-weight:400;
+  color:var(--silver);line-height:1.8;margin-bottom:2rem;
+  padding-left:1.2rem;border-left:1px solid rgba(200,205,214,0.3);
+}
+.chef-bio{
+  font-size:0.68rem;font-weight:200;letter-spacing:0.5px;
+  color:var(--dimmer);line-height:2.1;margin-bottom:2.5rem;
+}
+.chef-awards{display:flex;gap:2rem;flex-wrap:wrap}
+.award{text-align:center}
+.award-num{
+  font-family:var(--display);font-size:2rem;letter-spacing:2px;
+  background:var(--chrome);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.award-label{
+  font-size:0.55rem;font-weight:200;letter-spacing:4px;text-transform:uppercase;
+  color:var(--dimmer);margin-top:0.2rem;
+}
+
+/* ── DISHES ── */
+.dishes-section{position:relative}
+.dishes-header{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  margin-bottom:4rem;max-width:1200px;margin-left:auto;margin-right:auto;
+}
+.dishes-grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr;
+  grid-template-rows:auto auto;
+  gap:2px;
+  max-width:1200px;margin:0 auto;
+}
+.dish{position:relative;overflow:hidden;cursor:pointer}
+.dish:first-child{grid-row:span 2}
+.dish img{
+  width:100%;height:100%;
+  object-fit:cover;
+  min-height:280px;
+  filter:grayscale(0.4) brightness(0.8) contrast(1.05);
+  transition:transform 0.7s cubic-bezier(.4,0,.2,1),filter 0.5s;
+}
+.dish:hover img{transform:scale(1.07);filter:grayscale(0.1) brightness(0.85) contrast(1.1)}
+.dish:first-child img{min-height:562px}
+.dish-info{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,0.88) 0%,rgba(0,0,0,0.1) 55%,transparent 100%);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:1.8rem 1.5rem;
+  transform:translateY(8px);transition:transform 0.4s;
+}
+.dish:hover .dish-info{transform:translateY(0)}
+.dish-cat{
+  font-size:0.55rem;font-weight:300;letter-spacing:5px;text-transform:uppercase;
+  color:var(--dimmer);margin-bottom:0.4rem;
+}
+.dish-name{
+  font-family:var(--serif);font-size:1.1rem;font-style:italic;
+  color:var(--silver2);margin-bottom:0.3rem;
+}
+.dish-price{
+  font-size:0.65rem;font-weight:200;letter-spacing:3px;
+  background:var(--chrome);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+/* ── TESTIMONIALS ── */
+.testi-section{background:var(--bg2);border-top:1px solid var(--line)}
+.testi-wrap{max-width:1200px;margin:0 auto}
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-left:1px solid var(--line)}
+.testi{
+  padding:3rem 2.5rem;border-right:1px solid rgba(150,180,230,0.18);border-bottom:1px solid var(--line);
+  position:relative;
+}
+.testi-mark{
+  font-family:var(--serif);font-size:4rem;font-style:italic;
+  color:rgba(200,205,214,0.08);line-height:1;margin-bottom:0.5rem;
+}
+.testi-text{
+  font-family:var(--serif);font-size:0.9rem;font-style:italic;
+  color:rgba(200,205,214,0.60);line-height:1.9;margin-bottom:1.5rem;
+}
+.testi-stars{
+  font-size:0.6rem;letter-spacing:4px;
+  background:var(--chrome);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:0.8rem;
+}
+.testi-author{
+  font-size:0.58rem;font-weight:300;letter-spacing:5px;text-transform:uppercase;
+  color:var(--dimmer);
+}
+
+/* ── CTA ── */
+.cta-section{
+  min-height:50vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;position:relative;overflow:hidden;
+  border-top:1px solid var(--line);
+}
+.cta-section::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 60% 60% at 50% 50%,rgba(200,205,214,0.04) 0%,transparent 70%);
+}
+.cta-section .s-h2{position:relative;font-size:clamp(4rem,8vw,9rem);margin-bottom:1.5rem;text-align:center}
+.cta-section p{
+  position:relative;font-size:0.65rem;font-weight:200;letter-spacing:4px;text-transform:uppercase;
+  color:var(--dimmer);margin-bottom:3rem;
+}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid var(--line);
+  padding:4rem 4vw 2rem;
+  background:var(--bg2);
+}
+.footer-top{
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:3rem;max-width:1200px;margin:0 auto 3rem;
+}
+.f-brand{
+  font-family:var(--display);font-size:2rem;letter-spacing:5px;
+  background:var(--chrome);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:1rem;
+}
+.f-desc{font-size:0.62rem;font-weight:200;letter-spacing:0.5px;color:var(--dimmer);line-height:2}
+.f-title{font-size:0.55rem;font-weight:300;letter-spacing:6px;text-transform:uppercase;color:var(--silver);margin-bottom:1.5rem}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:0.8rem}
+.f-links a{font-size:0.62rem;font-weight:200;letter-spacing:1px;color:var(--dimmer);text-decoration:none;transition:color 0.3s}
+.f-links a:hover{color:var(--silver2)}
+.footer-bottom{
+  border-top:1px solid var(--line);padding-top:2rem;
+  display:flex;justify-content:space-between;align-items:center;
+  max-width:1200px;margin:0 auto;
+  font-size:0.55rem;font-weight:200;letter-spacing:3px;color:rgba(200,205,214,0.25);
+}
+
+/* ── ANIMATIONS ── */
+.reveal{opacity:1;transform:translateY(0);transition:opacity 0.9s ease,transform 0.9s ease}
+.reveal-left{opacity:1;transform:translateX(0);transition:opacity 0.9s ease,transform 0.9s ease}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  .nav-center,.nav-cta{display:none}.hamburger{display:flex}
+  .hero{grid-template-columns:1fr;height:auto}
+  .hero-left{padding:120px 6vw 60px;opacity:1!important;transform:none!important;border-right:none}
+  .hero-right{height:60vw}
+  .hero-h1{font-size:clamp(3.5rem,15vw,6rem)}
+  .phil-wrap{grid-template-columns:1fr;gap:3rem}
+  .chef-wrap{grid-template-columns:1fr}
+  .chef-img-col{min-height:400px}
+  .chef-content{padding:3rem 6vw}
+  .dishes-grid{grid-template-columns:1fr 1fr}
+  .dish:first-child{grid-row:span 1}
+  .dish:first-child img{min-height:280px}
+  .testi-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:600px){
+  .dishes-grid{grid-template-columns:1fr}
+  .footer-top{grid-template-columns:1fr}
+  .hero-h1{font-size:clamp(4rem,15vw,7rem)}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="index.html" class="nav-logo">NOIR & SEL</a>
+  <ul class="nav-center">
+    <li><a href="index.html" class="active">Inicio</a></li>
+    <li><a href="menu.html">Menú</a></li>
+    <li><a href="reservaciones.html">Reservaciones</a></li>
+    <li><a href="contacto.html">Contacto</a></li>
+  </ul>
+  <a href="reservaciones.html" class="nav-cta">Reservar</a>
+  <div class="hamburger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-left reveal-left">
+    <div class="hero-eyebrow">Alta Cocina Francesa · Ciudad de México</div>
+    <div class="hero-h1">NOIR<br>&amp;<br>SEL</div>
+    <p class="hero-desc">Una experiencia gastronómica donde cada plato es una declaración. Tradición francesa, alma contemporánea.</p>
+    <div class="hero-btns">
+      <a href="menu.html" class="btn-solid">Ver Menú</a>
+      <a href="reservaciones.html" class="btn-ghost">Reservar Mesa</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&auto=format&fit=crop&q=90" alt="Restaurante"/>
+    <div class="hero-num">01 / 04</div>
+  </div>
+  <div class="hero-bottom-bar"></div>
+</div>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-inner">
+    <span>ALTA COCINA</span><span class="marquee-dot">✦</span>
+    <span>POLANCO · CDMX</span><span class="marquee-dot">✦</span>
+    <span>MARIDAJE DE VINOS</span><span class="marquee-dot">✦</span>
+    <span>CHEF JEAN-BAPTISTE MOREL</span><span class="marquee-dot">✦</span>
+    <span>EXPERIENCIA DE 5 TIEMPOS</span><span class="marquee-dot">✦</span>
+    <span>RESERVACIONES DISPONIBLES</span><span class="marquee-dot">✦</span>
+    <span>ALTA COCINA</span><span class="marquee-dot">✦</span>
+    <span>POLANCO · CDMX</span><span class="marquee-dot">✦</span>
+    <span>MARIDAJE DE VINOS</span><span class="marquee-dot">✦</span>
+    <span>CHEF JEAN-BAPTISTE MOREL</span><span class="marquee-dot">✦</span>
+    <span>EXPERIENCIA DE 5 TIEMPOS</span><span class="marquee-dot">✦</span>
+    <span>RESERVACIONES DISPONIBLES</span><span class="marquee-dot">✦</span>
+  </div>
+</div>
+
+<!-- PHILOSOPHY -->
+<section>
+  <div class="phil-wrap">
+    <div class="reveal-left">
+      <div class="s-label">Nuestra filosofía</div>
+      <div class="s-h2">EL<br>ARTE<br>EN<br>EL<br>PLATO</div>
+      <br>
+      <p>En Noir & Sel creemos que la cocina es el único arte que involucra todos los sentidos. Cada creación nace de la obsesión por la perfección técnica y la honestidad del ingrediente.</p>
+    </div>
+    <div class="phil-items reveal">
+      <div class="phil-item">
+        <div class="phil-n">01</div>
+        <div>
+          <h3>Ingrediente como protagonista</h3>
+          <p>Seleccionamos cada ingrediente con fanatismo. Productores artesanales de Francia y México que comparten nuestra devoción por la calidad sin compromiso.</p>
+        </div>
+      </div>
+      <div class="phil-item">
+        <div class="phil-n">02</div>
+        <div>
+          <h3>Técnica al servicio del sabor</h3>
+          <p>Formados en las grandes brigadas de París, nuestros chefs dominan la técnica clásica para subvertirla con inteligencia, sin traicionar jamás la esencia del plato.</p>
+        </div>
+      </div>
+      <div class="phil-item">
+        <div class="phil-n">03</div>
+        <div>
+          <h3>El silencio de lo perfecto</h3>
+          <p>Un plato verdaderamente grande no necesita explicación. Cuando todo está en su lugar, el silencio del comensal es el mejor cumplido que puede recibir un chef.</p>
+        </div>
+      </div>
+      <div class="phil-item">
+        <div class="phil-n">04</div>
+        <div>
+          <h3>La sala como extensión de la cocina</h3>
+          <p>El servicio no es un añadido, es parte de la creación. Cada gesto de nuestra sala ha sido coreografiado para que nada distraiga de la experiencia en el plato.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div style="height:1px;background:var(--line)"></div>
+
+<!-- CHEF -->
+<section class="chef-section" style="padding:0">
+  <div class="chef-wrap">
+    <div class="chef-img-col">
+      <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1000&auto=format&fit=crop&q=88" alt="Chef Jean-Baptiste Morel"/>
+    </div>
+    <div class="chef-content reveal">
+      <div class="s-label">El Chef</div>
+      <div class="chef-name">JEAN-<br>BAPTISTE<br>MOREL</div>
+      <p class="chef-quote">"Cocinar sin emoción es simplemente alimentar. Cocinar con obsesión es transformar."</p>
+      <p class="chef-bio">Formado en Le Cordon Bleu de París y forjado en las cocinas del Plaza Athénée, Jean-Baptiste Morel llegó a México hace doce años enamorado de la riqueza de sus ingredientes. Su cocina es un diálogo entre dos culturas — la precisión francesa y la profundidad mexicana — que da como resultado platos únicos en el mundo.</p>
+      <div class="chef-awards">
+        <div class="award"><div class="award-num">25+</div><div class="award-label">Años de experiencia</div></div>
+        <div class="award"><div class="award-num">3</div><div class="award-label">Galardones internacionales</div></div>
+        <div class="award"><div class="award-num">12</div><div class="award-label">Años en México</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DISHES -->
+<section class="dishes-section">
+  <div class="dishes-header reveal">
+    <div>
+      <div class="s-label">Nuestra cocina</div>
+      <div class="s-h2">PLATOS<br>INSIGNIA</div>
+    </div>
+    <a href="menu.html" class="btn-ghost">Ver menú completo</a>
+  </div>
+  <div class="dishes-grid">
+    <div class="dish reveal">
+      <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=800&auto=format&fit=crop&q=88" alt="Canard"/>
+      <div class="dish-info">
+        <div class="dish-cat">Plat Principal</div>
+        <div class="dish-name">Canard à l'Orange</div>
+        <div class="dish-price">$62 USD</div>
+      </div>
+    </div>
+    <div class="dish reveal">
+      <img src="https://images.unsplash.com/photo-1559847844-5315695dadae?w=700&auto=format&fit=crop&q=88" alt="Foie Gras"/>
+      <div class="dish-info">
+        <div class="dish-cat">Entrée</div>
+        <div class="dish-name">Foie Gras Maison</div>
+        <div class="dish-price">$42 USD</div>
+      </div>
+    </div>
+    <div class="dish reveal">
+      <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?w=700&auto=format&fit=crop&q=88" alt="Soufflé"/>
+      <div class="dish-info">
+        <div class="dish-cat">Dessert</div>
+        <div class="dish-name">Soufflé au Chocolat</div>
+        <div class="dish-price">$24 USD</div>
+      </div>
+    </div>
+    <div class="dish reveal">
+      <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=700&auto=format&fit=crop&q=88" alt="Entrée"/>
+      <div class="dish-info">
+        <div class="dish-cat">Entrée</div>
+        <div class="dish-name">Bisque de Homard</div>
+        <div class="dish-price">$32 USD</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section">
+  <div class="testi-wrap">
+    <div style="margin-bottom:3rem" class="reveal">
+      <div class="s-label">Lo que dicen</div>
+      <div class="s-h2">VOCES<br>DE LA MESA</div>
+    </div>
+    <div class="testi-grid">
+      <div class="testi reveal">
+        <div class="testi-mark">"</div>
+        <p class="testi-text">Una experiencia que redefine lo que significa comer bien en México. El foie gras es sencillamente el mejor que he probado fuera de París.</p>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-author">Isabelle Fontaine · París</div>
+      </div>
+      <div class="testi reveal">
+        <div class="testi-mark">"</div>
+        <p class="testi-text">El chef Morel ha logrado algo extraordinario: traer la haute cuisine a México sin perder ni una pizca de su alma. Memorable en todos los sentidos.</p>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-author">Carlos Mendoza · CDMX</div>
+      </div>
+      <div class="testi reveal">
+        <div class="testi-mark">"</div>
+        <p class="testi-text">El maridaje de vinos, el silencio calculado del salón, el servicio invisible. Todo está diseñado para que el plato sea el protagonista absoluto.</p>
+        <div class="testi-stars">★★★★★</div>
+        <div class="testi-author">Marc Lefebvre · Lyon</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="s-h2 reveal">RESERVE<br>SU NOCHE</div>
+  <p class="reveal">Disponibilidad limitada · Experiencia de cinco tiempos</p>
+  <a href="reservaciones.html" class="btn-solid reveal">Reservar Ahora</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="f-brand">NOIR & SEL</div>
+      <p class="f-desc">Alta cocina francesa en el corazón de Polanco, Ciudad de México. Una declaración gastronómica sin concesiones.</p>
+    </div>
+    <div>
+      <div class="f-title">Navegación</div>
+      <ul class="f-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="menu.html">Menú</a></li>
+        <li><a href="reservaciones.html">Reservaciones</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="f-title">Horarios</div>
+      <ul class="f-links">
+        <li><a href="#">Mar – Vie: 14:00 – 23:00</a></li>
+        <li><a href="#">Sáb – Dom: 13:00 – 23:30</a></li>
+        <li><a href="#">Lunes: Cerrado</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="f-title">Contacto</div>
+      <ul class="f-links">
+        <li><a href="tel:+525512345678">+52 55 1234 5678</a></li>
+        <li><a href="mailto:hola@noiretsel.mx">hola@noiretsel.mx</a></li>
+        <li><a href="contacto.html">Polanco, CDMX</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Noir & Sel. Todos los derechos reservados.</span>
+    <span>Diseñado por NovaWeb Studio</span>
+  </div>
+</footer>
+
+
+
+<script>
+window.onscroll = function(){
+  var n = document.getElementById('nav');
+  if(n){ n.className = window.scrollY > 60 ? 'scrolled' : ''; }
+};
+
+function toggleMenu(){
+  var m = document.getElementById('mob-menu');
+  if(!m){
+    m = document.createElement('div');
+    m.id = 'mob-menu';
+    m.style.cssText = 'position:fixed;top:68px;left:0;right:0;z-index:9999;background:#020818;border-bottom:2px solid rgba(150,180,230,0.3);padding:1.5rem 5vw';
+    m.innerHTML = '<a href="index.html" style="display:block;padding:1rem 0;font-size:1rem;letter-spacing:3px;color:#d8dde8;text-decoration:none;text-transform:uppercase;border-bottom:1px solid rgba(150,180,230,0.1)">Inicio</a>'
+      + '<a href="menu.html" style="display:block;padding:1rem 0;font-size:1rem;letter-spacing:3px;color:#d8dde8;text-decoration:none;text-transform:uppercase;border-bottom:1px solid rgba(150,180,230,0.1)">Menú</a>'
+      + '<a href="reservaciones.html" style="display:block;padding:1rem 0;font-size:1rem;letter-spacing:3px;color:#d8dde8;text-decoration:none;text-transform:uppercase;border-bottom:1px solid rgba(150,180,230,0.1)">Reservaciones</a>'
+      + '<a href="contacto.html" style="display:block;padding:1rem 0;font-size:1rem;letter-spacing:3px;color:#d8dde8;text-decoration:none;text-transform:uppercase">Contacto</a>'
+      + '<div onclick="toggleMenu()" style="position:absolute;top:1rem;right:1.5rem;font-size:1.5rem;color:#d8dde8;cursor:pointer">✕</div>';
+    document.body.appendChild(m);
+  } else {
+    m.style.display = m.style.display === 'none' ? 'block' : 'none';
+  }
+}
+
+var els = document.querySelectorAll('.reveal,.reveal-left');
+for(var i=0;i<els.length;i++){ els[i].classList.add('on'); }
+</script>
+</body>
+</html>
